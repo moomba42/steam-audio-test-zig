@@ -38,5 +38,9 @@ pub fn main() !void {
         return error.BinauralEffectCreationFailed;
     }
 
-    // TODO: Load raw audio file
+    const input_audio_bytes = @embedFile("inputaudio");
+    const input_audio_sample_count: usize = input_audio_bytes.len/@sizeOf(f32);
+    const input_audio: [input_audio_sample_count]f32 = @as([*]const f32, @alignCast(@ptrCast(input_audio_bytes)))[0..input_audio_sample_count].*;
+
+    std.debug.print("Input audio sample count: {d}", .{input_audio.len});
 }

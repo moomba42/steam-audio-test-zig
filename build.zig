@@ -27,6 +27,10 @@ pub fn build(b: *std.Build) void {
     // step when running `zig build`).
     b.installArtifact(exe);
 
+    exe.root_module.addAnonymousImport("inputaudio", .{
+        .root_source_file = b.path("inputaudio.raw"),
+    });
+
     exe.addIncludePath(b.path("libs/steamaudio/include/"));
     exe.addLibraryPath(b.path("libs/steamaudio/lib/osx/"));
     exe.linkSystemLibrary("phonon");
